@@ -2,7 +2,7 @@
 
 namespace Core.Entities
 {
-    public class Note
+    public class Note : Entity
     {
         public int NoteId { get; set; }
         public string Title { get; set; }
