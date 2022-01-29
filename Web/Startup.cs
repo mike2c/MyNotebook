@@ -1,5 +1,7 @@
 using Core.Domain.Notes;
+using Core.Repository;
 using Data.Context;
+using Data.Repository.SqLite;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +30,7 @@ namespace Web
             services.AddControllersWithViews();
             services.AddDbContext<MyNotebookContext>();
             services.AddTransient<INoteService, NoteService>();
+            services.AddTransient<INoteRepository, NoteRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
