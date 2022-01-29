@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Models;
+using Core.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,25 @@ namespace Core.Domain.Notes
 {
     public class NoteService : INoteService
     {
+
+        private INoteRepository noteRepository;
+        public NoteService(INoteRepository noteRepository)
+        {
+            this.noteRepository = noteRepository;
+        }
+
         public Note CreateNote(AddNoteModel model)
         {
-            throw new NotImplementedException();
+            var note = new Note()
+            {                
+                Title = model.Title,
+                Body = model.Body,
+                CreatedDate = DateTime.Now                
+            };
+
+            noteRepository.Create(note);
+
+            return note;
         }
 
         public IEnumerable<Note> GetNotes(int page, int size, string search = "")
@@ -29,7 +46,15 @@ namespace Core.Domain.Notes
 
         public Note UpdateNote(UpdateNoteModel model)
         {
-            throw new NotImplementedException();
+            var note = this.noteRepository.Get(model.NoteId);
+
+            note.Body = model.Body;
+            note.LastModifiedDate = DateTime.Now;
+            note.Title = model.Title;
+
+            noteRepository.Update(note);
+
+            return note;            
         }
     }
 }
