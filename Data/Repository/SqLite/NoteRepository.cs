@@ -10,6 +10,11 @@ namespace Data.Repository.SqLite
     {
         private MyNotebookContext context;
 
+        public NoteRepository(MyNotebookContext context)
+        {
+            this.context = context;
+        }
+
         public void Create(Note entity)
         {
             this.context.Add(entity);

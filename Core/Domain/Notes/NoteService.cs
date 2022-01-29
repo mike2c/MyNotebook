@@ -18,7 +18,7 @@ namespace Core.Domain.Notes
             this.noteRepository = noteRepository;
         }
 
-        public Note CreateNote(AddNoteModel model)
+        public Note CreateNote(CreateNoteModel model)
         {
             var note = new Note()
             {                

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.Helpers;
 
 namespace Web
 {
@@ -27,10 +28,14 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.Configure<TinyMCE>(options => Configuration.GetSection("TinyMCE").Bind(options));
+
             services.AddDbContext<MyNotebookContext>();
             services.AddTransient<INoteService, NoteService>();
-            services.AddTransient<INoteRepository, NoteRepository>();
+            services.AddTransient<INoteRepository, NoteRepository>();   
+
+            services.AddControllersWithViews();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

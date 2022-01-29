@@ -1,14 +1,14 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-a.navbar-brand {
+/*a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
-}
+}*/
 
 /* Provide sufficient contrast against white background */
-a {
+/*a {
   color: #0366d6;
 }
 
@@ -22,20 +22,20 @@ a {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
-}
+}*/
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
+/*html {
   font-size: 14px;
-}
-@media (min-width: 768px) {
+}*/
+/*@media (min-width: 768px) {
   html {
     font-size: 16px;
   }
-}
+}*/
 
-.border-top {
+/*.border-top {
   border-top: 1px solid #e5e5e5;
 }
 .border-bottom {
@@ -49,23 +49,269 @@ html {
 button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
-}
+}*/
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
+/*html {
   position: relative;
   min-height: 100%;
 }
 
-body {
+body {*/
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  /*margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+  line-height: 60px;*/ /* Vertically center the text there */
+/*}*/
+
+/**
+    -> Estilos propios
+*/
+
+/*Override bootstrap styles*/
+
+
+
+.form-group {
+    
+}
+
+.form-group > label {
+    color: #161C34;
+}
+
+.form-group > input {
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid #161C34;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    outline: none !important;
+}
+
+.form-group > input:focus
+{
+    outline: none !important;
+    border: none !important;
+}
+
+.form-group > input:active
+{
+    outline: none !important;
+    border: none !important;
+}
+
+/*End overriding*/
+
+:root {
+    --primary-text-color: #999EB7;
+    --secondary-text-color: #1A1B4B;
+    --helper-text-color: red;
+    --background-color: #F6F5FA;
+    --primary-color: #F7A400;
+    --secondary-color: #F7A400;
+    --font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);    
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.header {
+    width: 100%;
+    background-color: white;
+    padding: 0.4em;
+    box-shadow: 2px 0px 8px 0px rgba(0,0,0, 0.4);
+    margin-bottom: 2rem;
+}
+
+.header > .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    text-decoration: none !important;
+    color: #F7A400;
+    font-weight: bold;
+    font-size: 1.5rem;    
+}
+
+.logo > span {
+    color: #999EB7;
+}
+
+.logo:hover {
+    color: #F7A400;    
+}
+
+.logo:hover > span {
+    color: #0366d6;
+}
+
+
+.searchbar {
+    display: flex;
+    align-items: center;
+}
+
+.searchbar__box {
+    display: none;
+}
+
+.searchbar__button {    
+    
+    font-size: 18px;
+    color: #1A1B4B;    
+    padding: 0px;    
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;    
+}
+
+.searchbar__button > span {
+    font-size: inherit;
+}
+
+.field {
+  margin-bottom: 0.5rem;
+  position: relative;
+  width: 100%;  
+}
+
+.field__wrapper {
+    width: 100%;
+}
+
+/* Input*/
+.field__wrapper > input {
+	border: none;
+	border-bottom: 0.125rem solid var(--secondary-text-color);
+	width: 100%;
+	height: 2.5rem;
+	font-size: 0.9rem;
+	padding-left: 0.875rem;
+	line-height: 147.6%;
+	padding-top: 0.825rem;
+	padding-bottom: 0rem;    
+    margin: 0;    
+}
+
+.field__wrapper > input:focus {
+	outline: none;
+}
+
+.field__wrapper > .field__label {
+	position: absolute;
+	top: 0.9375rem;
+	left: 0.875rem;
+	line-height: 147.6%;
+	color: var(--primary-text-color);
+	transition: top .2s;
+}
+
+.field__wrapper > .omrs-input-helper {
+	font-size: 0.9375rem;
+	color: var(--helper-text-color);
+	letter-spacing: 0.0275rem;
+	margin: 0.125rem 0.875rem;
+}
+
+.field__wrapper > input:hover {
+	background: white;
+	border-color: var(--primary-color);
+}
+
+.field__wrapper > input:focus + .field__label,
+.field__wrapper > input:valid + .field__label {
+	top: 0;    
+	font-size: 0.8rem;
+	margin-bottom: 20px;
+}
+
+.field__wrapper:not(.omrs-input-danger) > input:focus + .field__label {
+	color: var(--primary-text-color);
+}
+
+.field__wrapper:not(.omrs-input-danger) > input:focus {
+	border-color: var(--primary-color);
+}
+
+/*.omrs-input-underlined:not(.omrs-input-danger) > input:focus ~ svg,
+.omrs-input-filled:not(.omrs-input-danger) > input:focus ~ svg {
+	fill: var(--omrs-color-ink-high-contrast);
+}*/
+
+/** DISABLED **/
+
+/*.omrs-input-underlined > input:disabled {
+	background: var(--omrs-color-bg-low-contrast);
+	cursor: not-allowed;
+}
+
+.omrs-input-underlined > input:disabled + .omrs-input-label,
+.omrs-input-underlined > input:disabled ~ .omrs-input-helper{
+	color: var(--omrs-color-ink-low-contrast);
+}
+
+.omrs-input-underlined > input:disabled ~ svg {
+	fill: var(--omrs-color-ink-low-contrast);
+}*/
+
+
+/** DANGER **/
+
+/*.omrs-input-underlined.omrs-input-danger > .omrs-input-label, .omrs-input-underlined.omrs-input-danger > .omrs-input-helper,
+.omrs-input-filled.omrs-input-danger > .omrs-input-label, .omrs-input-filled.omrs-input-danger > .omrs-input-helper{
+	color: var(--omrs-color-danger);
+}
+
+.omrs-input-danger > svg {
+	fill: var(--omrs-color-danger);
+}
+
+.omrs-input-danger > input {
+	border-color: var(--omrs-color-danger);
+}
+
+.omrs-input-underlined > input {
+	background: var(--omrs-color-bg-high-contrast);
+}
+.omrs-input-filled > input {
+	background: var(--omrs-color-bg-low-contrast);
+}*/
+
+.actions {
+    display: flex;
+    flex-direction: row-reverse;
+    font-family: var(--font-family);
+}
+
+.button {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0px 3px 4px 0px  rgba(0,0,0,0.45);
+    outline: none;
+    border: none;
+    font-family: inherit;
+    font-size: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    border-radius: 4px;
 }
