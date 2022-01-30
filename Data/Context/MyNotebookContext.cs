@@ -7,6 +7,7 @@ namespace Data.Context
     public class MyNotebookContext : DbContext
     {
         public DbSet<Note> Notes { get; set; }
+        public DbSet<Topic> Topics { get; set; }
         public string DbPath { get; }
         public MyNotebookContext()
         {
@@ -40,6 +41,35 @@ namespace Data.Context
             modelBuilder.Entity<Note>()
                 .Property(a => a.LastModifiedDate)
                 .IsRequired(false);
+
+            modelBuilder.Entity<Topic>()
+              .ToTable("Topic")
+              .HasKey(a => a.TopicId);
+
+            modelBuilder.Entity<Topic>()
+                .Property(a => a.TopicName)
+                .HasColumnType("varchar")
+                .HasMaxLength(25)
+                .IsRequired(true);
+
+            modelBuilder.Entity<Note>()
+                .HasOne(a => a.Topic)
+                .WithMany(b => b.Notes);
+
+            modelBuilder.Entity<Topic>()
+                .HasData(
+                    new Topic(1, "Math"),
+                    new Topic(2, "Social Studies"),
+                    new Topic(3, "Geography"),
+                    new Topic(4, "English"),
+                    new Topic(5, "Art"),
+                    new Topic(6, "Algebra"),
+                    new Topic(7, "Geometry"),
+                    new Topic(8, "Health"),
+                    new Topic(9, "Spanish"),
+                    new Topic(10, "Speech"),
+                    new Topic(11, "History")                    
+                );
         }
     }
 }

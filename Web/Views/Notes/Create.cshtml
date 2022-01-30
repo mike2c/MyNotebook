@@ -1,21 +1,27 @@
 ﻿@using Core.Models
 @model CreateNoteModel
 
-<h4>Create new note	</h4>
+<h5><b>CREATE NEW NOTE</b></h5>
 <form asp-action="create" asp-controller="notes" method="post">
 	<div class="field">
-		<label class="field__wrapper" asp-for="Title">
+		<label class="field__wrapper">
 			<input asp-for="Title">
-			<span class="field__label">Normal</span>
+			<span class="field__label">Title</span>
 			<span asp-validation-for="Title" class="text-danger"></span>
 		</label>		
+	</div>
+	<div class="field">
+		<select asp-for="TopicId" asp-items="@ViewBag.Topics">
+			<option>Please select one</option>
+		</select>
+		<span asp-validation-for="TopicId" class="text-danger"></span>
 	</div>
 	<div class="field">
 		<textarea asp-for="Body">Hello, World!</textarea>
 		<span asp-validation-for="Body" class="text-danger"></span>
 	</div>
-	<div class="actions">
-		<button class="button">Save Changes</button>
-		<a class="button" asp-action="index">Cancel</a>
+	<div class="right">
+		<button class="button">Save</button>
+		@*<a class="button" asp-action="index">Cancel</a>*@
 	</div>	
 </form>

@@ -1,4 +1,5 @@
 using Core.Domain.Notes;
+using Core.Domain.Topics;
 using Core.Repository;
 using Data.Context;
 using Data.Repository.SqLite;
@@ -32,7 +33,9 @@ namespace Web
 
             services.AddDbContext<MyNotebookContext>();
             services.AddTransient<INoteService, NoteService>();
-            services.AddTransient<INoteRepository, NoteRepository>();   
+            services.AddTransient<INoteRepository, NoteRepository>();
+            services.AddTransient<ITopicRepository, TopicRepository>();
+            services.AddTransient<ITopicService, TopicService>();
 
             services.AddControllersWithViews();
         }

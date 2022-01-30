@@ -2,7 +2,10 @@
 using Core.Repository;
 using Data.Context;
 using System;
-using System.Collections.Generic;
+using System.Linq;
+using Core.Models;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repository.SqLite
 {
@@ -17,28 +20,40 @@ namespace Data.Repository.SqLite
 
         public void Create(Note entity)
         {
-            this.context.Add(entity);
-            this.context.SaveChanges();
+            context.Add(entity);
+            context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = context.Notes.Find(id);
+            context.Notes.Remove(entity);
         }
 
         public Note Get(int id)
         {
-            throw new NotImplementedException();
+            var note = context.Notes.Find(id);
+            return note;
         }
 
-        public IEnumerable<Note> GetAll(string query = null, int page = 1, int size = 12)
+        public PaginatedResult<Note> GetAll(int page, int size, Expression<Func<Note, bool>> query, Func<IQueryable<Note>, IOrderedQueryable<Note>> orderBy = null)
         {
-            throw new NotImplementedException();
+            var paginationModel = new PaginatedResult<Note>();
+            IQueryable<Note> queryable = context.Notes.Include(a => a.Topic)
+                                            .Where(query)
+                                            .Skip((page - 1) * size)
+                                            .Take(size);                                            
+
+            paginationModel.Count = queryable.Count();
+            paginationModel.Data = queryable.ToList();
+
+            return paginationModel;
         }
 
         public void Update(Note entity)
         {
-            throw new NotImplementedException();
+            context.Notes.Update(entity);
+            context.SaveChanges();
         }
     }
 }

@@ -3,14 +3,16 @@ using System;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(MyNotebookContext))]
-    partial class MyNotebookContextModelSnapshot : ModelSnapshot
+    [Migration("20220130051420_AddedTopicTable")]
+    partial class AddedTopicTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,63 +62,6 @@ namespace Data.Migrations
                     b.HasKey("TopicId");
 
                     b.ToTable("Topic");
-
-                    b.HasData(
-                        new
-                        {
-                            TopicId = 1,
-                            TopicName = "Math"
-                        },
-                        new
-                        {
-                            TopicId = 2,
-                            TopicName = "Social Studies"
-                        },
-                        new
-                        {
-                            TopicId = 3,
-                            TopicName = "Geography"
-                        },
-                        new
-                        {
-                            TopicId = 4,
-                            TopicName = "English"
-                        },
-                        new
-                        {
-                            TopicId = 5,
-                            TopicName = "Art"
-                        },
-                        new
-                        {
-                            TopicId = 6,
-                            TopicName = "Algebra"
-                        },
-                        new
-                        {
-                            TopicId = 7,
-                            TopicName = "Geometry"
-                        },
-                        new
-                        {
-                            TopicId = 8,
-                            TopicName = "Health"
-                        },
-                        new
-                        {
-                            TopicId = 9,
-                            TopicName = "Spanish"
-                        },
-                        new
-                        {
-                            TopicId = 10,
-                            TopicName = "Speech"
-                        },
-                        new
-                        {
-                            TopicId = 11,
-                            TopicName = "History"
-                        });
                 });
 
             modelBuilder.Entity("Core.Entities.Note", b =>
