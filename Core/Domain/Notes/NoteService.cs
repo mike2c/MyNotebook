@@ -18,12 +18,15 @@ namespace Core.Domain.Notes
 
         public Note CreateNote(CreateNoteModel model)
         {
+            var now = DateTime.Now;
+
             var note = new Note()
             {                
                 Title = model.Title,
                 Body = model.Body,
                 TopicId = model.TopicId,
-                CreatedDate = DateTime.Now                
+                CreatedDate = now,
+                LastModifiedDate = now
             };
 
             noteRepository.Create(note);
@@ -31,25 +34,32 @@ namespace Core.Domain.Notes
             return note;
         }
 
+        public void DeleteNote(int noteId)
+        {            
+            this.noteRepository.Delete(noteId);
+        }
+
         public PaginatedResult<Note> GetAllNotes(string query, string order)
         {
-            Expression<Func<Note, bool>> search = (note) => note.Title.Contains(query) && note.Body.Contains(query);
-            Func<IQueryable<Note>, IOrderedQueryable<Note>> orderBy = (query) =>
-            {
-                order = order.ToLower();
-                switch (order)
-                {
-                    case "date":
-                        return query.OrderBy(a => a.CreatedDate);
-                    case "topic":
-                        return query.OrderBy(a => a.Topic.TopicName);
-                    default:
-                        return query.OrderBy(a => a.Title);
-                }
-            };        
+            Expression<Func<Note, bool>> search = 
+                (note) => note.Title.Contains(query) && note.Body.Contains(query);            
+
+            Func<IQueryable<Note>, IOrderedQueryable<Note>> orderBy = 
+                (query) =>
+                    {
+                        order = order.ToLower();
+                        switch (order)
+                        {
+                            case "date":
+                                return query.OrderBy(a => a.CreatedDate);
+                            case "topic":
+                                return query.OrderBy(a => a.Topic.TopicName);
+                            default:
+                                return query.OrderBy(a => a.Title);
+                        }
+                    };        
 
             var notes = this.noteRepository.GetAll(search, orderBy);
-
             return notes;
         }
 

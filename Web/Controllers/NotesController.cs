@@ -46,6 +46,7 @@ namespace Web.Controllers
         }         
         
         [HttpPost]        
+        [ValidateAntiForgeryToken]
         public ActionResult Create([FromForm] CreateNoteModel model)
         {
             if (ModelState.IsValid)
@@ -62,67 +63,77 @@ namespace Web.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var note = this.noteService.GetNote(id);
+            var note = noteService.GetNote(id);
             
             if(note == null)
             {
                 return Redirect("error/404");
             }
 
-            return View();
+            var model = new UpdateNoteModel()
+            {
+                NoteId = note.NoteId,
+                Title = note.Title,
+                Body = note.Body,
+                CreatedDate = note.CreatedDate,
+                LastModifiedDate = note.LastModifiedDate,
+                TopicId = note.TopicId
+            };
+            
+            ViewBag.TinyMCEApiKey = tinyMCE.ApiKey;
+            ViewBag.Topics = GetTopicListItems();
+
+            return View(model);
         }
 
         [HttpPost]        
         [ValidateAntiForgeryToken]
         public ActionResult Edit([FromForm] UpdateNoteModel model)
         {
-
             if (ModelState.IsValid)
             {
-                this.noteService.UpdateNote(model);
+                noteService.UpdateNote(model);
                 return RedirectToAction(nameof(Index));
             }
 
+            ViewBag.TinyMCEApiKey = tinyMCE.ApiKey;
+            ViewBag.Topics = GetTopicListItems();
 
-            return View();
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete([FromForm] int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            noteService.DeleteNote(id);
+            return RedirectToAction(nameof(Index));
         }
 
-        private List<SelectListItem> GetSortListItems(string current)
-        {
-            var sortListItems = new List<SelectListItem>()
+        #region Get list items methods
+            private List<SelectListItem> GetSortListItems(string current)
             {
-                new SelectListItem("Title", "title", current.Equals("title")),
-                new SelectListItem("Topic", "topic", current.Equals("topic")),
-                new SelectListItem("Creation Date", "date", current.Equals("date"))
-            };
+                var sortListItems = new List<SelectListItem>()
+                {
+                    new SelectListItem("Title", "title", current.Equals("title")),
+                    new SelectListItem("Topic", "topic", current.Equals("topic")),
+                    new SelectListItem("Creation Date", "date", current.Equals("date"))
+                };
 
-            if (!sortListItems.Any(a => a.Selected))
+                if (!sortListItems.Any(a => a.Selected))
+                {
+                    sortListItems.First().Selected = true;
+                }
+
+                return sortListItems;
+            }
+            private IEnumerable<SelectListItem> GetTopicListItems()
             {
-                sortListItems.First().Selected = true;
+                var topics = topicService.ListTopics();
+                var topicListItems = topics.Select(a => new SelectListItem() { Text = a.TopicName, Value = a.TopicId.ToString() });
+                return topicListItems;
             }
 
-            return sortListItems;
-        }
-
-        private IEnumerable<SelectListItem> GetTopicListItems()
-        {
-            var topics = topicService.ListTopics();
-            var topicListItems = topics.Select(a => new SelectListItem() { Text = a.TopicName, Value = a.TopicId.ToString() });
-            return topicListItems;
-        }
+        #endregion      
     }
 } 

@@ -149,7 +149,7 @@ label > span {
 }
 
 .horizontal > label > span {
-    color: var(--primary-text-color) !important;
+    color: var(--secondary-text-color) !important;
 }
 
 .button {
@@ -307,7 +307,6 @@ label > span {
 
 .card__button-delete {
     text-decoration: none !important;
-    color: #FF0000; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -318,6 +317,13 @@ label > span {
     color: #FF0000;     
 }
 
+.card__button-delete > button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #FF0000; 
+}
+
 .ascendent {
     transform: scale(-1, 1);
 }
@@ -326,7 +332,14 @@ label > span {
     transform: scale(1, -1);
 }
 
+.date {
+    color: var(--primary-text-color);
+    margin: 0;
+}
 
+.date > span{
+    color: var(--secondary-text-color);
+}
 
 /*Override bootstrap styles*/
 

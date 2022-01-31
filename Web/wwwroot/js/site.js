@@ -7,13 +7,13 @@ tinymce.init({
     height: 400
 });
 
-$(".card__button-delete").click(e => {
-    e.preventDefault();
+function onDeleteNote(e) {
 
-    if (confirm("Are you sure you want to delete this note?")) {
-        window.location = e.target.href;
-    }
-});
+    if (confirm("Are you sure you want to delete this note?"))
+        return true;
+
+    return false;
+}
 
 $("#sort").change(e => {    
     window.location = window.location.origin + `?sort=${e.target.value}`;

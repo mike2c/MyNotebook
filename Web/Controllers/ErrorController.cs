@@ -11,9 +11,9 @@ namespace Web.Controllers
             {
                 case 404:
                     return View("404");
+                default:
+                    return View("error");
             }
-
-            return View();
         }
     }
 }

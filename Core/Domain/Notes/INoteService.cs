@@ -9,5 +9,6 @@ namespace Core.Domain.Notes
         public PaginatedResult<Note> GetAllNotes(string query, string orderBy);
         public Note CreateNote(CreateNoteModel model);
         public Note UpdateNote(UpdateNoteModel model);
+        public void DeleteNote(int noteId);
     }
 }

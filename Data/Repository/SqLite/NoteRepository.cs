@@ -28,6 +28,7 @@ namespace Data.Repository.SqLite
         {
             var entity = context.Notes.Find(id);
             context.Notes.Remove(entity);
+            context.SaveChanges();
         }
 
         public Note Get(int id)

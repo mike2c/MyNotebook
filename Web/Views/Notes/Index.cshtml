@@ -42,12 +42,15 @@
 						@Html.Raw(@item.Body)
 					</div>
 					<p class="card__summary_footer">
-						<span> @item.Topic.TopicName</span> @((item.LastModifiedDate ?? item.CreatedDate).ToString("dd/MM/yyyy mm:hh:ss"))
+						<span> @item.Topic.TopicName</span> @(item.CreatedDate.ToString("dd/MM/yyyy mm:hh:ss"))
 					</p>
 				</a>
-				<a class="card__button-delete" href="@Url.Action("delete", "notes", new { id = item.NoteId })">
-					<span class="material-icons">delete</span>
-				</a>
+				<form class="card__button-delete" asp-action="delete" asp-controller="notes" method="post" onsubmit="return onDeleteNote(this)">
+					<input type="hidden" id="id" name="id" value="@item.NoteId" />
+					<button type="submit" href="@Url.Action("delete", "notes", new { id = item.NoteId })">
+						<span class="material-icons">delete</span>
+					</button>
+				</form>				
 			</div>
 			<div class="card__overlay">
 				<div class="card__overlay__buttons">
