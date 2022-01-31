@@ -16,7 +16,10 @@ namespace Data.Context
             DbPath = System.IO.Path.Join(path, "customers.db");
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite($"Data Source={DbPath}");
+        protected override void OnConfiguring(DbContextOptionsBuilder options) {
+            options.UseSqlite($"Data Source={DbPath}");
+            options.LogTo(Console.WriteLine);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

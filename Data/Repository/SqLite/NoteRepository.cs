@@ -36,17 +36,21 @@ namespace Data.Repository.SqLite
             return note;
         }
 
-        public PaginatedResult<Note> GetAll(int page, int size, Expression<Func<Note, bool>> query, Func<IQueryable<Note>, IOrderedQueryable<Note>> orderBy = null)
+        public PaginatedResult<Note> GetAll(Expression<Func<Note, bool>> query, Func<IQueryable<Note>, IOrderedQueryable<Note>> orderBy = null)
         {
             var paginationModel = new PaginatedResult<Note>();
-            IQueryable<Note> queryable = context.Notes.Include(a => a.Topic)
-                                            .Where(query)
-                                            .Skip((page - 1) * size)
-                                            .Take(size);                                            
+            IQueryable<Note> queryable = context.Notes.Include(a => a.Topic).Where(query);
+
+            if(orderBy == null)
+            {
+                paginationModel.Data = queryable.ToList();
+            }
+            else
+            {
+                paginationModel.Data = orderBy(queryable).ToList();
+            }
 
             paginationModel.Count = queryable.Count();
-            paginationModel.Data = queryable.ToList();
-
             return paginationModel;
         }
 

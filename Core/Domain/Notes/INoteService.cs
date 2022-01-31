@@ -5,8 +5,9 @@ namespace Core.Domain.Notes
 {
     public interface INoteService
     {
-        public PaginatedResult<Note> GetNotes(int page, int size, string query, string orderBy);
+        public Note GetNote(int id);
+        public PaginatedResult<Note> GetAllNotes(string query, string orderBy);
         public Note CreateNote(CreateNoteModel model);
-        public Note UpdateNote(UpdateNoteModel model);        
+        public Note UpdateNote(UpdateNoteModel model);
     }
 }

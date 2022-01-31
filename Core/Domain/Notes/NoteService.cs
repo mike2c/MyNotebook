@@ -31,31 +31,32 @@ namespace Core.Domain.Notes
             return note;
         }
 
-        public PaginatedResult<Note> GetNotes(int page, int size, string query, string order)
+        public PaginatedResult<Note> GetAllNotes(string query, string order)
         {
-            Expression<Func<Note, bool>> search = a => a.Title.Contains(query) && a.Body.Contains(query);
-            Func<IQueryable<Note>, IOrderedQueryable<Note>> orderBy = null;
-
-            order = order.ToLower();
-            switch (order)
+            Expression<Func<Note, bool>> search = (note) => note.Title.Contains(query) && note.Body.Contains(query);
+            Func<IQueryable<Note>, IOrderedQueryable<Note>> orderBy = (query) =>
             {
-                case "":
-                    orderBy = query => query.OrderBy(a => a.Title);
-                    break;
-                case "topic":
-                    orderBy = query => query.OrderBy(a => a.Title);
-                    break;
-                default:
-                    orderBy = query => query.OrderBy(a => a.Title);
-                    break;
-            }
+                order = order.ToLower();
+                switch (order)
+                {
+                    case "date":
+                        return query.OrderBy(a => a.CreatedDate);
+                    case "topic":
+                        return query.OrderBy(a => a.Topic.TopicName);
+                    default:
+                        return query.OrderBy(a => a.Title);
+                }
+            };        
 
-            if (order.ToLower().Equals("title"))
-            {
-            }
+            var notes = this.noteRepository.GetAll(search, orderBy);
 
-            var notes = this.noteRepository.GetAll(page, size, search);
             return notes;
+        }
+
+        public Note GetNote(int id)
+        {
+            var note = this.noteRepository.Get(id);
+            return note;
         }
 
         public Note UpdateNote(UpdateNoteModel model)

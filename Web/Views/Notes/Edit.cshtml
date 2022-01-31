@@ -1,8 +1,8 @@
 ﻿@using Core.Models
-@model CreateNoteModel
+@model UpdateNoteModel
 
 <h5 class="title">CREATE NEW NOTE</h5>
-<form class="form" asp-action="create" asp-controller="notes" method="post">
+<form class="form" asp-action="edit" asp-controller="notes" method="post">
 	<div class="field large">
 		<label asp-for="Title"></label>
 		<input asp-for="Title">
@@ -20,8 +20,16 @@
 		<textarea asp-for="Body">Hello, World!</textarea>
 		<span asp-validation-for="Body" class="text-danger"></span>
 	</div>
+	<div class="left">
+		<span class="material-icons">
+			edit_calendar
+		</span>
+		<p class="date">
+			Created At <span>@Model.CreatedDate.ToString("dd/MM/yyyy")</span> | Last Update <span>@Model.CreatedDate.ToString("dd/MM/yyyy")</span>
+		</p>
+	</div>
 	<div class="right">
 		<button class="button">Save</button>
 		<a class="button" asp-action="index">Cancel</a>
-	</div>	
+	</div>
 </form>

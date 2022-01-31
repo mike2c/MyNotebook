@@ -6,104 +6,61 @@
 	ViewData["Title"] = "Index";
 }
 
-<div class="command-wrapper">
+<div class="box">
 	<div class="left">
-		<div class="btn-group">
-			<button class="btn btn-secondary button btn-sm" type="button">
-				Small split button
-			</button>
-			<button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<span class="sr-only">Toggle Dropdown</span>
-			</button>
-			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">Action</a>
-				<a class="dropdown-item" href="#">Another action</a>
-				<a class="dropdown-item" href="#">Something else here</a>
-			</div>
-		</div>
+		<div class="field horizontal">
+			<label>
+				<span class="material-icons">
+					filter_alt
+				</span>
+			</label>
+			<select id="sort" asp-items="@ViewBag.sortItems">				
+			</select>
+		</div>		
 	</div>
 	<div class="right">
 		<a class="button" asp-action="create">Create <span class="material-icons">add</span></a>
 	</div>
 </div>
 
-@foreach (var item in Model.Data)
-{
-	<tr>
-		<td>
-			@Html.DisplayFor(modelItem => item.NoteId)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.Title)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.Body)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.CreatedDate)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.LastModifiedDate)
-		</td>
-		<td>
-			@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-			@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-			@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-		</td>
-	</tr>
-}
-
-
-@*<h1>Index</h1>
-
-	<p>
-		<a asp-action="Create">Create New</a>
-	</p>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>
-					@Html.DisplayNameFor(model => model.NoteId)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.Title)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.Body)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.CreatedDate)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.LastModifiedDate)
-				</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-	@foreach (var item in Model) {
-			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.NoteId)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Title)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Body)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.CreatedDate)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.LastModifiedDate)
-				</td>
-				<td>
-					@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-					@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-					@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-				</td>
-			</tr>
+<div class="card-group">
+	@{
+		int number = 1; 
 	}
-		</tbody>
-	</table>*@
+	@foreach (var item in Model.Data)
+	{
+		<div class="card">
+			<div class="card__layout">
+				<div class="card__number">
+					@number
+				</div>
+				<a class="card__summary" href="@Url.Action("edit", "notes", new { id = item.NoteId })">
+					<h6 class="card__summary_title">
+						@item.Title
+					</h6>					
+					<div class="card__summary_body">
+						@Html.Raw(@item.Body)
+					</div>
+					<p class="card__summary_footer">
+						<span> @item.Topic.TopicName</span> @((item.LastModifiedDate ?? item.CreatedDate).ToString("dd/MM/yyyy mm:hh:ss"))
+					</p>
+				</a>
+				<a class="card__button-delete" href="@Url.Action("delete", "notes", new { id = item.NoteId })">
+					<span class="material-icons">delete</span>
+				</a>
+			</div>
+			<div class="card__overlay">
+				<div class="card__overlay__buttons">
+					<a href="@Url.Action("delete", "notes", new { id = item.NoteId })">
+						<span class="material-icons">pencil</span>
+					</a>
+					<a class="text-danger" href="@Url.Action("delete", "notes", new { id = item.NoteId })">
+						<span class="material-icons">delete</span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		number++;
+	}
+</div>

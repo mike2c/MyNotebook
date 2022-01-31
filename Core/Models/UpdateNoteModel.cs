@@ -16,6 +16,9 @@ namespace Core.Models
         public string Body { get; set; }
 
         [Required(ErrorMessage = "The Topic field is required")]
-        public int TopicId { get; set; }        
+        public int TopicId { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+        public DateTime? LastModifiedDate { get; set; }
     }
 }

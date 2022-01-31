@@ -1,35 +1,6 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-/*Override bootstrap styles*/
-
-.form-group > label {
-    color: #161C34;
-}
-
-.form-group > input {
-    border: none;
-    border-radius: 0px;
-    border-bottom: 1px solid #161C34;
-    padding-top: 0.1em;
-    padding-bottom: 0.1em;
-    outline: none !important;
-}
-
-.form-group > input:focus
-{
-    outline: none !important;
-    border: none !important;
-}
-
-.form-group > input:active
-{
-    outline: none !important;
-    border: none !important;
-}
-
-/*End overriding*/
-
 :root {
     --primary-text-color: #999EB7;
     --secondary-text-color: #1A1B4B;
@@ -52,7 +23,7 @@ body {
     background-color: white;
     padding: 0.4em;
     box-shadow: 2px 0px 8px 0px rgba(0,0,0, 0.4);
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .header > .container {
@@ -80,7 +51,6 @@ body {
     color: #0366d6;
 }
 
-
 .searchbar {
     display: flex;
     align-items: center;
@@ -91,7 +61,6 @@ body {
 }
 
 .searchbar__button {    
-    
     font-size: 18px;
     color: #1A1B4B;    
     padding: 0px;    
@@ -107,82 +76,67 @@ body {
     font-size: inherit;
 }
 
-.field {
-  margin-bottom: 0.5rem;
-  position: relative;
-  width: 100%;  
+h5.title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
 }
 
-.field > select {
-    width: 100%;
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.field {    
+    display: flex;
+    flex-direction: column;
+}
+
+.field > label {
+    color: var(--secondary-text-color);
+    font-weight: 500;
+    margin-bottom: 2px;    
+}
+
+.field > input {    
+    height: 28px;
+    color: var(--secondary-text-color);
     border: none;
-    border-bottom: 0.125rem solid var(--secondary-text-color);
-    height: 2.5rem;
-}
-
-.field > select:focus {
     outline: none;
-    border-bottom: 0.125rem solid var(--primary-color);
+    border-bottom: 2px solid var(--secondary-text-color);
 }
 
-.field__wrapper {
-    width: 100%;
+.field > select {    
+    height: 28px;
+    color: var(--secondary-text-color);
+    border: none;
+    outline: none;
+    border-bottom: 2px solid var(--secondary-text-color);
 }
 
-/* Input*/
-.field__wrapper > input {
-	border: none;
-	border-bottom: 0.125rem solid var(--secondary-text-color);
-	width: 100%;
-	height: 2.5rem;
-	font-size: 0.9rem;
-	padding-left: 0.875rem;
-	line-height: 147.6%;
-	padding-top: 0.825rem;
-	padding-bottom: 0rem;    
-    margin: 0;    
+label > span {
+    vertical-align: middle;    
 }
 
-.field__wrapper > input:focus {
-	outline: none;
+.field > input:active, .field > input:hover,
+.field > select:active, .field > select:hover{
+    border-bottom: 2px solid var(--primary-color);    
 }
 
-.field__wrapper > .field__label {
-	position: absolute;
-	top: 0.9375rem;
-	left: 0.875rem;
-	line-height: 147.6%;
-	color: var(--primary-text-color);
-	transition: top .2s;
+.horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.field__wrapper > .omrs-input-helper {
-	font-size: 0.9375rem;
-	color: var(--helper-text-color);
-	letter-spacing: 0.0275rem;
-	margin: 0.125rem 0.875rem;
+.horizontal > * {
+    margin-right: 5px;
 }
 
-.field__wrapper > input:hover {
-	background: white;
-	border-color: var(--primary-color);
+.horizontal > label > span {
+    color: var(--primary-text-color) !important;
 }
-
-.field__wrapper > input:focus + .field__label,
-.field__wrapper > input:valid + .field__label {
-	top: 0;    
-	font-size: 0.8rem;
-	margin-bottom: 20px;
-}
-
-.field__wrapper:not(.omrs-input-danger) > input:focus + .field__label {
-	color: var(--primary-text-color);
-}
-
-.field__wrapper:not(.omrs-input-danger) > input:focus {
-	border-color: var(--primary-color);
-}
-
 
 .button {
     
@@ -202,6 +156,10 @@ body {
     text-decoration: none !important;    
     text-align: center;
     margin: 0px !important;    
+    min-width: 100px;
+}
+
+.button-large {
     width: 100%;
 }
 
@@ -215,8 +173,9 @@ body {
     background-color: #3A9EFD;
 }
 
-.command-wrapper {
+.box {
     display: flex;    
+    margin-bottom: 10px;
 }
 
 .left {
@@ -234,3 +193,165 @@ body {
     align-items: center;
     gap: 10px;
 }
+
+.card-group {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.card {
+    width: 100%;
+    box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.3);
+    border: none;
+    border-radius: 0px;
+    margin: 0px !important;
+}
+
+.card__number {
+    color: white;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 1rem;
+    line-height: 1;
+    display: block; 
+    width: 15%;
+    height: inherit;
+    margin:0px;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card__layout {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.card__summary {
+    padding: 0.4rem;
+    width: 100%;
+    text-decoration: none !important;
+}
+
+.card__summary:active {
+    text-decoration: none;
+}
+
+.card__summary:focus {
+    text-decoration: none;    
+}
+
+.card__summary > * {
+    margin: 0;
+    padding: 0rem;
+}
+
+.card__summary_title {
+    font-size: 0.8rem;
+    font-weight: bolder;    
+    margin-bottom: 5px;
+    color: var(--secondary-text-color);
+   /* white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;*/
+}
+
+.card__summary_footer > span {
+    background-color: var(--primary-color);
+    border-radius: 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 2px;
+    color: white;
+    min-width: 50px;    
+    text-align: center;
+}
+
+.card__summary_body {
+    display: none !important;
+    font-size: 0.6rem;
+    color: var(--primary-text-color) !important;
+}
+
+.card__summary_footer {
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--primary-text-color);       
+}
+
+.card__overlay {
+    display: none;
+}
+
+.card__button-delete {
+    text-decoration: none !important;
+    color: #FF0000; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 8px;
+}
+
+.card__button-delete:focus {
+    color: #FF0000;     
+}
+
+.ascendent {
+    transform: scale(-1, 1);
+}
+
+.descendent {
+    transform: scale(1, -1);
+}
+
+
+
+/*Override bootstrap styles*/
+
+.form-group > label {
+    color: #161C34;
+}
+
+.form-group > input {
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid #161C34;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    outline: none !important;
+}
+
+.form-group > input:focus
+{
+    outline: none !important;
+    border: none !important;
+}
+
+.form-group > input:active
+{
+    outline: none !important;
+    border: none !important;
+}
+
+.btn-group {
+    height: 30px !important;
+}
+
+.btn-group > button {
+    line-height: 0;
+}
+
+.dropdown-menu {
+    font-size: 0.8rem;
+    padding: 8px;
+}
+
+/*End overriding*/

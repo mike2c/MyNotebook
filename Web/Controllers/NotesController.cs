@@ -16,8 +16,6 @@ namespace Web.Controllers
 {
     public class NotesController : Controller
     {        
-        private const int DefaultPageSize = 12;
-
         private INoteService noteService;
         private ITopicService topicService;
         private readonly TinyMCE tinyMCE;
@@ -28,31 +26,25 @@ namespace Web.Controllers
             this.topicService = topicService;
             this.tinyMCE = tinyMCEOptions.Value;
         }
-
-        // GET: NotesController
-        public ActionResult Index(int page = 1, int size = DefaultPageSize, string query = "", string orderBy = "title")
+        
+        [HttpGet]
+        public ActionResult Index(string query = "", string sort = "title")
         {
-            var notes = noteService.GetNotes(page, size, query, orderBy);
+            var sortItems = GetSortListItems(sort);
+            var notes = noteService.GetAllNotes(query, sort);
+
+            ViewBag.SortItems = sortItems;
             return View(notes);
         }
 
-        // GET: NotesController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: NotesController/Create
+        [HttpGet]
         public ActionResult Create()
         {
             ViewBag.TinyMCEApiKey = tinyMCE.ApiKey;
-
-            var topics = topicService.ListTopics();
-            ViewBag.Topics = topics.Select(a => new SelectListItem() { Text = a.TopicName, Value = a.TopicId.ToString() });
+            ViewBag.Topics = GetTopicListItems();
             return View();
-        }
-         
-        // POST: NotesController/Create
+        }         
+        
         [HttpPost]        
         public ActionResult Create([FromForm] CreateNoteModel model)
         {
@@ -61,41 +53,40 @@ namespace Web.Controllers
                 noteService.CreateNote(model);
                 return RedirectToAction(nameof(Index));
             }
-
-            var topics = topicService.ListTopics();
-            ViewBag.Topics = topics.Select(a => new SelectListItem() { Text = a.TopicName, Value = a.TopicId.ToString() });
+                        
+            ViewBag.Topics = GetTopicListItems();
             ViewBag.TinyMCEApiKey = tinyMCE.ApiKey;
             return View();
         }
 
-        // GET: NotesController/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
+            var note = this.noteService.GetNote(id);
+            
+            if(note == null)
+            {
+                return Redirect("error/404");
+            }
+
             return View();
         }
 
-        // POST: NotesController/Edit/5
-        [HttpPost]
+        [HttpPost]        
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit([FromForm] UpdateNoteModel model)
         {
-            try
+
+            if (ModelState.IsValid)
             {
+                this.noteService.UpdateNote(model);
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: NotesController/Delete/5
-        public ActionResult Delete(int id)
-        {
+
             return View();
         }
 
-        // POST: NotesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
@@ -109,5 +100,29 @@ namespace Web.Controllers
                 return View();
             }
         }
+
+        private List<SelectListItem> GetSortListItems(string current)
+        {
+            var sortListItems = new List<SelectListItem>()
+            {
+                new SelectListItem("Title", "title", current.Equals("title")),
+                new SelectListItem("Topic", "topic", current.Equals("topic")),
+                new SelectListItem("Creation Date", "date", current.Equals("date"))
+            };
+
+            if (!sortListItems.Any(a => a.Selected))
+            {
+                sortListItems.First().Selected = true;
+            }
+
+            return sortListItems;
+        }
+
+        private IEnumerable<SelectListItem> GetTopicListItems()
+        {
+            var topics = topicService.ListTopics();
+            var topicListItems = topics.Select(a => new SelectListItem() { Text = a.TopicName, Value = a.TopicId.ToString() });
+            return topicListItems;
+        }
     }
-}
+} 
