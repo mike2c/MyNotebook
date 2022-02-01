@@ -4,6 +4,7 @@
 
 @{
 	ViewData["Title"] = "Index";
+	int number = 1;
 }
 
 <div class="box">
@@ -23,10 +24,7 @@
 	</div>
 </div>
 
-<div class="card-group">
-	@{
-		int number = 1; 
-	}
+<div class="card-group">	
 	@foreach (var item in Model.Data)
 	{
 		<div class="card">
@@ -38,11 +36,8 @@
 					<h6 class="card__summary_title">
 						@item.Title
 					</h6>					
-					<div class="card__summary_body">
-						@Html.Raw(@item.Body)
-					</div>
 					<p class="card__summary_footer">
-						<span> @item.Topic.TopicName</span> @(item.CreatedDate.ToString("dd/MM/yyyy mm:hh:ss"))
+						<span> @item.Topic.TopicName</span> @(item.CreatedDate.ToString("dd/MM/yyyy hh:mm  :ss"))
 					</p>
 				</a>
 				<form class="card__button-delete" asp-action="delete" asp-controller="notes" method="post" onsubmit="return onDeleteNote(this)">

@@ -28,12 +28,14 @@ namespace Web.Controllers
         }
         
         [HttpGet]
-        public ActionResult Index(string query = "", string sort = "title")
+        public ActionResult Index(string search, string sort = "title")
         {
+            
             var sortItems = GetSortListItems(sort);
-            var notes = noteService.GetAllNotes(query, sort);
+            var notes = noteService.GetAllNotes(search ?? string.Empty, sort);
 
             ViewBag.SortItems = sortItems;
+            ViewBag.Search = search;
             return View(notes);
         }
 

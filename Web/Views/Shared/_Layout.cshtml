@@ -15,14 +15,22 @@
 	<header class="header">
 		<div class="container">
 			<a class="logo" asp-area="" asp-controller="notes" asp-action="index">My <span>Notebook</span></a>
-			<div class="searchbar">
-				<input class="searchbar__box" type="search" autocomplete="on">
-				<button class="searchbar__button">
-					<span class="material-icons">
+			<form id="searchbar" class="searchbar" method="get" asp-action="index" asp-controller="notes">
+				<input type="text" class="searchbar__box" name="search" id="search" autocomplete="off" value="@(ViewBag.Search)" placeholder="...type to search">
+				<button type="button" class="searchbar__button">
+					<span class="material-icons show-icon">
 						search
 					</span>
+					<span class="material-icons close-icon">
+						close
+					</span>
 				</button>
-			</div>
+				<div class="searchbar__button">
+					<span class="material-icons">
+						search
+					</span>					
+				</div>
+			</form>
 		</div>
 	</header>
 	<div class="container">

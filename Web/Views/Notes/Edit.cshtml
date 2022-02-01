@@ -26,11 +26,11 @@
 			edit_calendar
 		</span>
 		<p class="date">
-			Created At <span>@Model.CreatedDate.ToString("dd/MM/yyyy")</span> | Last Update <span>@(Model.LastModifiedDate == null ? "" : Model.LastModifiedDate.Value.ToString("dd/MM/yyyy"))</span>
+			Created <span>@Model.CreatedDate.ToString("dd/MM/yyyy hh:mm tt")</span> | Last Update <span>@(Model.LastModifiedDate == null ? "" : Model.LastModifiedDate.Value.ToString("dd/MM/yyyy hh:mm tt"))</span>
 		</p>
 	</div>
 	<div class="right">
-		<button class="button">Save</button>
-		<a class="button" asp-action="index">Cancel</a>
+		<button class="button large">Save</button>
+		<a class="button large" asp-action="index">Cancel</a>
 	</div>
 </form>

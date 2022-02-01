@@ -47,7 +47,7 @@ namespace Data.Repository.SqLite
                 paginationModel.Data = queryable.ToList();
             }
             else
-            {
+            { 
                 paginationModel.Data = orderBy(queryable).ToList();
             }
 

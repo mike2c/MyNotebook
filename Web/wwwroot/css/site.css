@@ -8,7 +8,9 @@ for details on configuring this project to bundle and minify static web assets. 
     --background-color: #F6F5FA;
     --primary-color: #F7A400;
     --secondary-color: #F7A400;
+    --line-color: #E3E2E7;
     --font-family: 'Roboto', sans-serif;
+    --danger-color: #EF4423;
 }
 
 body {
@@ -37,7 +39,7 @@ body {
     background-color: white;
     padding: 0.4em;
     box-shadow: 2px 0px 8px 0px rgba(0,0,0, 0.4);
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .header > .container {
@@ -67,27 +69,83 @@ body {
 
 .searchbar {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
+    border-radius: 20px;    
+    padding: 0 !important;    
 }
 
 .searchbar__box {
+    padding-left: 0.7rem;
     display: none;
+    margin-left: 0px;
+    color: var(--secondary-text-color);
+    height: 28px;
+    width: 100%;
+    border-radius: 20px;
+    border: none;
+    outline: none;
 }
 
-.searchbar__button {    
+.searchbar__button {
     font-size: 18px;
-    color: #1A1B4B;    
-    padding: 0px;    
+    color: #1A1B4B;
     background-color: transparent;
+    padding: 0px;    
     outline: none;
     border: none;
     border-radius: 50%;
-    height: 20px;
-    width: 20px;    
+    height: 28px;
+    width: 28px;
+    align-items: center;
+}
+
+button.searchbar__button:focus {    
+    outline: none;
+}
+
+button.searchbar__button:active,
+button.searchbar__button:focus {
+    outline: none !important;
+}
+
+button.searchbar__button:hover {
+    /*color: white;*/
+}
+
+div.searchbar__button {
+    display: none;
 }
 
 .searchbar__button > span {
-    font-size: inherit;
+    line-height: 28px;
+    font-size: 1.3rem;
+}
+
+.show {
+    width: 50%;    
+    border: 1px solid var(--primary-text-color);
+}
+
+.show > .searchbar__box {
+    display: block;
+    width: 88% !important;    
+}
+
+.close-icon {
+    display: none;
+}
+
+.show > .searchbar__button > .show-icon { 
+    display: none;
+}
+
+.show > .searchbar__button > .close-icon { 
+    display: block;
+}
+
+.show > .searchbar__button {
+    background-color: var(--secondary-text-color);
+    color: white;
 }
 
 h5.title {
@@ -100,6 +158,10 @@ h5.title {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.large {
+    width: 100%;
 }
 
 .field {    
@@ -241,7 +303,8 @@ label > span {
 
 .card__layout {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    flex-wrap: nowrap;
     gap: 5px;
 }
 
@@ -265,13 +328,14 @@ label > span {
 }
 
 .card__summary_title {
-    font-size: 0.8rem;
-    font-weight: bolder;    
-    margin-bottom: 5px;
-    color: var(--secondary-text-color);
-   /* white-space: nowrap;
+    width: 235px;
+    color: var(--secondary-text-color);    
+    white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden;*/
+    overflow: hidden;   
+    font-size: 0.8rem;
+    font-weight: bolder;   
+    margin-bottom: 5px;
 }
 
 .card__summary_footer > span {
@@ -305,12 +369,11 @@ label > span {
     display: none;
 }
 
-.card__button-delete {
+.card__button-delete {    
     text-decoration: none !important;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding-right: 8px;
+    justify-content: center;    
 }
 
 .card__button-delete:focus {
@@ -333,12 +396,354 @@ label > span {
 }
 
 .date {
+    font-size: 0.7rem;
     color: var(--primary-text-color);
     margin: 0;
 }
 
 .date > span{
     color: var(--secondary-text-color);
+}
+
+@media only screen and (min-width: 600px){
+    
+    .large {
+        width: auto;
+    }
+
+    .header{ 
+        margin-bottom: 3rem;
+    }
+
+    .card-group {
+        flex-direction: row;
+        flex-wrap: wrap !important;
+        flex-basis: 33.33%;
+        justify-content: flex-start;
+        gap: 20px;
+    }
+
+    .card {
+        display: flex;
+        padding: 0px;
+        height: 120px;
+        flex: 0 0 48% !important;
+    }
+    
+    .card:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    
+    .card:hover
+    .card:hover h6.card__summary_title {
+        color: white !important;
+    }
+
+    .card:hover .card__summary_footer {
+        border-top: 1px solid white;
+        color: white !important;
+    }
+
+    .card:hover .card__summary_footer > span {
+        background-color: white;
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+
+    .card__layout {
+        height: inherit;
+    }
+
+    .card__summary {
+        height: inherit;
+        padding: 0;
+        display: flex;
+        flex-direction: column;                
+        justify-content: space-between;
+        
+    }
+
+    .card__summary_body {       
+        display: block !important;    
+        padding: 10px;
+    }
+
+    .card__summary_body > * {
+        font-size: 8px !important;     
+    }
+
+    .card__button-delete, .card__number {
+        display: none;
+    }
+
+    .card__summary_title {    
+        font-size: 0.9rem;
+        padding: 10px;
+        margin: 0;   
+        white-space:normal;
+        text-overflow:clip;
+        overflow: hidden;   
+        height: auto !important;
+        width: 100%;
+    }
+
+    .card__summary_footer {           
+        border-top: 1px solid var(--line-color);
+        padding: 5px;
+        padding-left: 10px;
+        margin: 0;        
+    }
+}
+
+
+@media only screen and (min-width: 1024px){
+        
+    .searchbar {
+        border: 1px solid var(--primary-text-color);
+        border-radius: 20px;
+        width: 50%;
+        height: 30px;
+        padding-left: 10px;
+        padding-right: 5px;
+    }
+
+    .searchbar__box {
+        color: var(--secondary-text-color);
+        height: 28px;
+        display: block;
+        width: 100%;
+        border-radius: 20px;
+        border: none;
+        outline: none;
+    }
+
+    button.searchbar__button {
+        display: none;
+    }
+    
+    div.searchbar__button {
+        display: block;
+    }
+
+    .header{ 
+        margin-bottom: 3rem;
+    }
+
+    .card-group {
+        flex-direction: row;
+        flex-wrap: wrap !important;        
+        justify-content: flex-start;
+        gap: 20px;
+    }
+
+    .card {
+        display: flex;
+        padding: 0px;
+        height: 120px;
+        flex: 0 0 31.9% !important;
+    }
+    
+    .card:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .card:hover h6.card__summary_title {
+        color: white !important;
+    }
+
+    .card:hover .card__summary_footer {
+        color: white !important;
+    }
+
+    .card__layout {
+        height: inherit;
+    }
+
+    .card__summary {
+        height: inherit;
+        padding: 0;
+        display: flex;
+        flex-direction: column;                
+        justify-content: space-between;
+        
+    }
+
+    .card__summary_body {       
+        display: block !important;    
+        padding: 10px;
+    }
+
+    .card__summary_body > * {
+        font-size: 8px !important;     
+    }
+
+    .card__button-delete, .card__number {
+        display: none;
+    }
+
+    .card__summary_title {    
+        font-size: 0.9rem;
+        padding: 10px;
+        margin: 0;   
+        white-space:normal;
+        text-overflow:clip;
+        overflow: hidden;   
+        height: auto !important;
+        width: 100%;
+    }
+
+    .card__summary_footer {           
+        border-top: 1px solid var(--line-color);
+        padding: 5px;
+        padding-left: 10px;
+        margin: 0;        
+    }
+}
+
+
+@media only screen and (min-width: 1440px){
+    
+    .searchbar {
+        border: 1px solid var(--primary-text-color);
+        border-radius: 20px;
+        width: 50%;
+        height: 30px;
+        padding-left: 10px;
+        padding-right: 5px;
+    }
+
+    .searchbar__box {
+        color: var(--secondary-text-color);
+        height: 28px;
+        display: block;
+        width: 100%;
+        border-radius: 20px;
+        border: none;
+        outline: none;
+    }
+
+    button.searchbar__button {
+        display: none;
+    }
+    
+    div.searchbar__button {
+        display: block;
+    }
+
+    .header{ 
+        margin-bottom: 3rem;
+    }
+
+    .card-group {
+        flex-direction: row;
+        flex-wrap: wrap !important;        
+        justify-content: flex-start;
+        gap: 20px;
+    }
+
+    .card {        
+        display: flex;
+        padding: 0px;        
+        height: 120px;
+        flex: 0 0 23.6% !important;
+    }
+    
+    .card:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .card:hover h6.card__summary_title {
+        color: white !important;
+    }
+
+    .card:hover .card__summary_footer {
+        color: white !important;
+    }
+
+    .card__layout {
+        height: inherit;
+    }
+
+    .card__summary {
+        height: inherit;
+        padding: 0;
+        display: flex;
+        flex-direction: column;                
+        justify-content: space-between;
+        
+    }
+
+    .card__summary_body {       
+        display: block !important;    
+        padding: 10px;
+    }
+
+    .card__summary_body > * {
+        font-size: 8px !important;     
+    }
+
+    .card__button-delete, .card__number {
+        display: none;
+    }
+
+    .card__summary_title {
+        font-size: 0.9rem;
+        padding: 10px;
+        padding-top: 15px;
+        margin: 0;   
+        white-space:normal;
+        text-overflow:clip;
+        overflow: hidden;   
+        height: auto !important;
+        width: 100%;
+    }
+
+    .card__summary_footer {           
+        border-top: 1px solid var(--line-color);
+        padding: 5px;
+        padding-left: 10px;
+        margin: 0;        
+    }
+
+    .card__button-delete {
+        z-index: 1;
+        position: absolute;
+        display: block;
+        width: 25px;
+        height: 25px;
+        right: 0;
+        top: 0;        
+        background-color: white;
+        color: var(--danger-color);
+        border: 2px solid var(--danger-color);
+        box-sizing: content-box;
+        border-radius: 50%;
+        margin-top: -8px;
+        margin-right: -8px;
+        text-align: center;
+        padding: 0 !important;
+    }
+    
+    .card__button-delete > button {
+        text-align: center;
+        padding: 0px;
+        color: var(--danger-color);
+    }
+
+    .card__button-delete span {
+        line-height: 25px;
+        width: inherit;
+        height: inherit;        
+        font-size: 1.3rem;
+    }
+
+    .card__button-delete:hover {
+        transform: scale(1.5, 1.5);
+        transition-duration: 200ms;
+    }
 }
 
 /*Override bootstrap styles*/

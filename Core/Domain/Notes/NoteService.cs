@@ -41,8 +41,9 @@ namespace Core.Domain.Notes
 
         public PaginatedResult<Note> GetAllNotes(string query, string order)
         {
-            Expression<Func<Note, bool>> search = 
-                (note) => note.Title.Contains(query) && note.Body.Contains(query);            
+            
+            Expression<Func<Note, bool>> search =
+            (note) => note.Title.ToLower().Contains(query.ToLower()) || note.Body.ToLower().Contains(query.ToLower());
 
             Func<IQueryable<Note>, IOrderedQueryable<Note>> orderBy = 
                 (query) =>
