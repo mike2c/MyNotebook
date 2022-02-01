@@ -251,7 +251,7 @@ label > span {
 
 .box {
     display: flex;    
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .left {
@@ -479,7 +479,7 @@ label > span {
 
     .card__summary_title {    
         font-size: 0.9rem;
-        padding: 10px;
+        padding: 15px;
         margin: 0;   
         white-space:normal;
         text-overflow:clip;
@@ -493,6 +493,43 @@ label > span {
         padding: 5px;
         padding-left: 10px;
         margin: 0;        
+    }
+
+    .card__button-delete {
+        z-index: 1;
+        position: absolute;
+        display: block;
+        width: 25px;
+        height: 25px;
+        right: 0;
+        top: 0;        
+        background-color: white;
+        color: var(--danger-color);
+        border: 2px solid var(--danger-color);
+        box-sizing: content-box;
+        border-radius: 50%;
+        margin-top: -8px;
+        margin-right: -8px;
+        text-align: center;
+        padding: 0 !important;
+    }
+    
+    .card__button-delete > button {
+        text-align: center;
+        padding: 0px;
+        color: var(--danger-color);
+    }
+
+    .card__button-delete span {
+        line-height: 25px;
+        width: inherit;
+        height: inherit;        
+        font-size: 1.3rem;
+    }
+
+    .card__button-delete:hover {
+        transform: scale(1.5, 1.5);
+        transition-duration: 200ms;
     }
 }
 
@@ -585,7 +622,7 @@ label > span {
 
     .card__summary_title {    
         font-size: 0.9rem;
-        padding: 10px;
+        padding: 15px;
         margin: 0;   
         white-space:normal;
         text-overflow:clip;
@@ -599,6 +636,43 @@ label > span {
         padding: 5px;
         padding-left: 10px;
         margin: 0;        
+    }
+
+     .card__button-delete {
+        z-index: 1;
+        position: absolute;
+        display: block;
+        width: 25px;
+        height: 25px;
+        right: 0;
+        top: 0;        
+        background-color: white;
+        color: var(--danger-color);
+        border: 2px solid var(--danger-color);
+        box-sizing: content-box;
+        border-radius: 50%;
+        margin-top: -8px;
+        margin-right: -8px;
+        text-align: center;
+        padding: 0 !important;
+    }
+    
+    .card__button-delete > button {
+        text-align: center;
+        padding: 0px;
+        color: var(--danger-color);
+    }
+
+    .card__button-delete span {
+        line-height: 25px;
+        width: inherit;
+        height: inherit;        
+        font-size: 1.3rem;
+    }
+
+    .card__button-delete:hover {
+        transform: scale(1.5, 1.5);
+        transition-duration: 200ms;
     }
 }
 
@@ -691,8 +765,7 @@ label > span {
 
     .card__summary_title {
         font-size: 0.9rem;
-        padding: 10px;
-        padding-top: 15px;
+        padding: 15px;
         margin: 0;   
         white-space:normal;
         text-overflow:clip;
