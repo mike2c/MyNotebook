@@ -3,10 +3,10 @@
 
 <h5 class="title">EDIT A NOTE</h5>
 <form class="form" asp-action="edit" asp-controller="notes" method="post">
-	<input type="hidden" asp-for="NoteId" />
+	<input type="hidden" asp-for="NoteId"/>
 	<div class="field large">
 		<label asp-for="Title"></label>
-		<input asp-for="Title">
+		<input asp-for="Title" autocomplete="off">
 		<span asp-validation-for="Title" class="text-danger"></span>
 	</div>
 	<div class="field large">

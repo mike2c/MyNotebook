@@ -5,7 +5,7 @@
 <form class="form" asp-action="create" asp-controller="notes" method="post">
 	<div class="field large">
 		<label asp-for="Title"></label>
-		<input asp-for="Title">
+		<input asp-for="Title" autocomplete="off">
 		<span asp-validation-for="Title" class="text-danger"></span>
 	</div>
 	<div class="field large">

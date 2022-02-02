@@ -36,7 +36,7 @@ namespace Data.Repository.SqLite
             return entity;
         }
 
-        public PaginatedResult<Topic> GetAll(Expression<Func<Topic, bool>> query, Func<IQueryable<Topic>, IOrderedQueryable<Topic>> orderBy = null)
+        public PaginatedResult<Topic> GetAll(string search, Func<IQueryable<Topic>, IOrderedQueryable<Topic>> orderBy = null)
         {
             throw new NotImplementedException();
         }

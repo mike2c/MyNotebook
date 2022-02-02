@@ -12,13 +12,16 @@
 	<div class="box">
 		<div class="left">
 			<div class="field horizontal">
-				<label>
-					<span class="material-icons">
-						filter_alt
-					</span>
-				</label>
-				<select id="sort" asp-items="@ViewBag.sortItems">
-				</select>
+				<label>Sort By</label>
+				<div class="button-group">
+					<button id="toggleSort">
+						<span class="material-icons @(@ViewBag.Direction.Equals("desc") ? "inverse-text" : "")">
+							swap_vert
+						</span>
+					</button>
+					<select id="sort" asp-items="@ViewBag.SortOptions"></select>
+					<input type="hidden" name="direction" id="direction" value="@ViewBag.Direction" />
+				</div>				
 			</div>
 		</div>
 		<div class="right">

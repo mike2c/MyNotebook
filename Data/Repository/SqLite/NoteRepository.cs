@@ -37,10 +37,10 @@ namespace Data.Repository.SqLite
             return note;
         }
 
-        public PaginatedResult<Note> GetAll(Expression<Func<Note, bool>> query, Func<IQueryable<Note>, IOrderedQueryable<Note>> orderBy = null)
+        public PaginatedResult<Note> GetAll(string search, Func<IQueryable<Note>, IOrderedQueryable<Note>> orderBy = null)
         {
             var paginationModel = new PaginatedResult<Note>();
-            IQueryable<Note> queryable = context.Notes.Include(a => a.Topic).Where(query);
+            var queryable = context.Notes.Include(a => a.Topic).Where(a => EF.Functions.Like(a.Title, $"%{search}%") || EF.Functions.Like(a.Body, $"%{search}%"));
 
             if(orderBy == null)
             {

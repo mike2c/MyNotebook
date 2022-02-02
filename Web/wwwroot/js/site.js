@@ -15,6 +15,7 @@ function doSearch() {
     let filters = [];
     let sort = document.getElementById("sort").value;
     let search = document.getElementById("search").value;
+    let direction = document.getElementById("direction").value;
 
     if (sort) {
         filters.push(`sort=${sort}`);
@@ -24,10 +25,15 @@ function doSearch() {
         filters.push(`search=${search}`);
     }
 
+    if (direction) {        
+        filters.push(`direction=${direction}`);
+    }
+
     window.location = window.location.origin + `?${filters.join('&')}`;
 }
 
 $("#sort").change(e => {
+    document.getElementById("direction").value = 'asc';
     doSearch();
 });
 
@@ -46,10 +52,16 @@ $("button.searchbar__button").click(e => {
     }
 });
 
-/**
- * Configure the TinyMCE html text editor
- */
+$("#toggleSort").click(e => {
+    let direction = document.getElementById("direction");
+    direction.value = direction.value === 'asc' ? 'desc' : 'asc';
+    doSearch();
+});
 
+
+/**
+ * Configure the TinyMCE html text editor 
+ */
 tinymce.init({
     selector: '#Body',
     height: 400,

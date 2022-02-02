@@ -3,7 +3,6 @@ using Core.Models;
 using Core.Repository;
 using System;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace Core.Domain.Notes
 {
@@ -39,28 +38,10 @@ namespace Core.Domain.Notes
             this.noteRepository.Delete(noteId);
         }
 
-        public PaginatedResult<Note> GetAllNotes(string query, string order)
+        public PaginatedResult<Note> GetAllNotes(string search, string orderBy, string direction)
         {
-            
-            Expression<Func<Note, bool>> search =
-            (note) => note.Title.ToLower().Contains(query.ToLower()) || note.Body.ToLower().Contains(query.ToLower());
-
-            Func<IQueryable<Note>, IOrderedQueryable<Note>> orderBy = 
-                (query) =>
-                    {
-                        order = order.ToLower();
-                        switch (order)
-                        {
-                            case "date":
-                                return query.OrderBy(a => a.CreatedDate);
-                            case "topic":
-                                return query.OrderBy(a => a.Topic.TopicName);
-                            default:
-                                return query.OrderBy(a => a.Title);
-                        }
-                    };        
-
-            var notes = this.noteRepository.GetAll(search, orderBy);
+            Func<IQueryable<Note>, IOrderedQueryable<Note>> sortingBy = GetSortingFunction(orderBy, direction);
+            var notes = noteRepository.GetAll(search, sortingBy);
             return notes;
         }
 
@@ -82,6 +63,25 @@ namespace Core.Domain.Notes
             noteRepository.Update(note);
 
             return note;            
+        }
+
+        private Func<IQueryable<Note>, IOrderedQueryable<Note>> GetSortingFunction(string orderBy, string direction)
+        {
+            Func<IQueryable<Note>, IOrderedQueryable<Note>> sortingFunction = 
+                (query) =>
+                {
+                    switch (orderBy)
+                    {
+                        case "date":
+                            return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.CreatedDate) : query.OrderByDescending(a => a.CreatedDate);
+                        case "topic":
+                            return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.Topic.TopicName) : query.OrderByDescending(a => a.Topic.TopicName);
+                        default:
+                            return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.Title) : query.OrderByDescending(a => a.Title);
+                    }
+                };
+
+            return sortingFunction;
         }
     }
 }
