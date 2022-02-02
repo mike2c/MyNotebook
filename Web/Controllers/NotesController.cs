@@ -2,20 +2,18 @@
 using Core.Domain.Topics;
 using Core.Entities;
 using Core.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Web.Helpers;
+using Web.Navigation;
 
 namespace Web.Controllers
 {
     public class NotesController : Controller
-    {        
+    {   
         private INoteService noteService;
         private ITopicService topicService;
         private readonly TinyMCE tinyMCE;
@@ -28,18 +26,23 @@ namespace Web.Controllers
         }
         
         [HttpGet]
-        public ActionResult Index(string search, string sort, string direction)
+        public ActionResult Index(string search, string orderBy, string direction, int page = 1, int size = 12)
         {
             search = search ?? string.Empty;
             direction = direction ?? "asc";
-            sort = sort ?? "title";
+            orderBy = orderBy ?? "title";                        
+            
+            var notes = noteService.GetAllNotes(page, size, search, orderBy, direction);
+            var links = Pagination.GenerateNavigationLinks<Note>(notes, page, search, orderBy, direction);
 
-            var sortOptions = GetSortListItems(sort);
-            var notes = noteService.GetAllNotes(search, sort, direction);
-
-            ViewBag.SortOptions = sortOptions;
+            ViewBag.SortOptions = GetSortListItems(orderBy);
             ViewBag.Direction = direction;
             ViewBag.Search = search;
+            ViewBag.Page = page;
+
+            ViewBag.PrevLink = links.Previous;
+            ViewBag.NextLink = links.Next;
+
             return View(notes);
         }
 
@@ -48,6 +51,7 @@ namespace Web.Controllers
         {
             ViewBag.TinyMCEApiKey = tinyMCE.ApiKey;
             ViewBag.Topics = GetTopicListItems();
+
             return View();
         }         
         
@@ -63,6 +67,7 @@ namespace Web.Controllers
                         
             ViewBag.Topics = GetTopicListItems();
             ViewBag.TinyMCEApiKey = tinyMCE.ApiKey;
+
             return View();
         }
 
@@ -115,7 +120,7 @@ namespace Web.Controllers
             noteService.DeleteNote(id);
             return RedirectToAction(nameof(Index));
         }
-
+               
         #region Get list items methods
             private List<SelectListItem> GetSortListItems(string current)
             {
@@ -142,4 +147,6 @@ namespace Web.Controllers
 
         #endregion      
     }
+
+
 } 

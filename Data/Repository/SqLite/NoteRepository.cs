@@ -4,7 +4,6 @@ using Data.Context;
 using System;
 using System.Linq;
 using Core.Models;
-using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repository.SqLite
@@ -12,10 +11,19 @@ namespace Data.Repository.SqLite
     public class NoteRepository : INoteRepository
     {
         private MyNotebookContext context;
-
+        
         public NoteRepository(MyNotebookContext context)
         {
             this.context = context;
+        }
+
+        public PaginatedResult<Note> GetAll(int page, int size, string search, string orderBy, string direction)
+        {
+            var query = context.Notes.Where(a => EF.Functions.Like(a.Title, $"%{search}%") || EF.Functions.Like(a.Body, $"%{search}%"));
+            var itemsPerPage = query.Count();
+            var data = ApplySorting(query, orderBy, direction).Include(a => a.Topic).Skip((page - 1) * size).Take(size).ToList();
+
+            return new PaginatedResult<Note>(page, size, itemsPerPage, data);
         }
 
         public void Create(Note entity)
@@ -37,28 +45,23 @@ namespace Data.Repository.SqLite
             return note;
         }
 
-        public PaginatedResult<Note> GetAll(string search, Func<IQueryable<Note>, IOrderedQueryable<Note>> orderBy = null)
-        {
-            var paginationModel = new PaginatedResult<Note>();
-            var queryable = context.Notes.Include(a => a.Topic).Where(a => EF.Functions.Like(a.Title, $"%{search}%") || EF.Functions.Like(a.Body, $"%{search}%"));
-
-            if(orderBy == null)
-            {
-                paginationModel.Data = queryable.ToList();
-            }
-            else
-            { 
-                paginationModel.Data = orderBy(queryable).ToList();
-            }
-
-            paginationModel.Count = queryable.Count();
-            return paginationModel;
-        }
-
         public void Update(Note entity)
         {
             context.Notes.Update(entity);
             context.SaveChanges();
+        }
+
+        private IOrderedQueryable<Note> ApplySorting(IQueryable<Note> query, string orderBy, string direction)
+        {
+            switch (orderBy)
+            {
+                case "date":
+                    return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.CreatedDate) : query.OrderByDescending(a => a.CreatedDate);
+                case "topic":
+                    return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.Topic.TopicName) : query.OrderByDescending(a => a.Topic.TopicName);
+                default:
+                    return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.Title) : query.OrderByDescending(a => a.Title);
+            }
         }
     }
 }

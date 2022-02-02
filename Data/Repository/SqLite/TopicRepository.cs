@@ -5,7 +5,6 @@ using Data.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace Data.Repository.SqLite
 {
@@ -36,7 +35,7 @@ namespace Data.Repository.SqLite
             return entity;
         }
 
-        public PaginatedResult<Topic> GetAll(string search, Func<IQueryable<Topic>, IOrderedQueryable<Topic>> orderBy = null)
+        public PaginatedResult<Topic> GetAll(int page, int size, string search, string orderBy, string direction)
         {
             throw new NotImplementedException();
         }

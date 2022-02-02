@@ -2,7 +2,6 @@
 using Core.Models;
 using Core.Repository;
 using System;
-using System.Linq;
 
 namespace Core.Domain.Notes
 {
@@ -38,10 +37,9 @@ namespace Core.Domain.Notes
             this.noteRepository.Delete(noteId);
         }
 
-        public PaginatedResult<Note> GetAllNotes(string search, string orderBy, string direction)
-        {
-            Func<IQueryable<Note>, IOrderedQueryable<Note>> sortingBy = GetSortingFunction(orderBy, direction);
-            var notes = noteRepository.GetAll(search, sortingBy);
+        public PaginatedResult<Note> GetAllNotes(int page, int size, string search, string orderBy, string direction)
+        {            
+            var notes = noteRepository.GetAll(page, size, search, orderBy, direction);
             return notes;
         }
 
@@ -65,23 +63,6 @@ namespace Core.Domain.Notes
             return note;            
         }
 
-        private Func<IQueryable<Note>, IOrderedQueryable<Note>> GetSortingFunction(string orderBy, string direction)
-        {
-            Func<IQueryable<Note>, IOrderedQueryable<Note>> sortingFunction = 
-                (query) =>
-                {
-                    switch (orderBy)
-                    {
-                        case "date":
-                            return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.CreatedDate) : query.OrderByDescending(a => a.CreatedDate);
-                        case "topic":
-                            return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.Topic.TopicName) : query.OrderByDescending(a => a.Topic.TopicName);
-                        default:
-                            return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.Title) : query.OrderByDescending(a => a.Title);
-                    }
-                };
 
-            return sortingFunction;
-        }
     }
 }

@@ -13,12 +13,13 @@ function onDeleteNote(e) {
 function doSearch() {
 
     let filters = [];
-    let sort = document.getElementById("sort").value;
+    let orderBy = document.getElementById("orderBy").value;
     let search = document.getElementById("search").value;
     let direction = document.getElementById("direction").value;
+    let page = document.getElementById("page").value;
 
-    if (sort) {
-        filters.push(`sort=${sort}`);
+    if (orderBy) {
+        filters.push(`orderBy=${orderBy}`);
     }
 
     if (search) {
@@ -29,10 +30,14 @@ function doSearch() {
         filters.push(`direction=${direction}`);
     }
 
+    if (page) {
+        filters.push(`page=${page}`);
+    }
+
     window.location = window.location.origin + `?${filters.join('&')}`;
 }
 
-$("#sort").change(e => {
+$("#orderBy").change(e => {
     document.getElementById("direction").value = 'asc';
     doSearch();
 });

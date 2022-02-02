@@ -461,8 +461,86 @@ label > span {
     color: var(--secondary-text-color);
 }
 
+
+.paging {    
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 20px;
+    padding: 10px;
+    padding-right: 5px;
+    margin-top: 5px;
+    align-items: center !important;
+    
+}
+
+.paging-label {    
+    color: var(--primary-text-color);
+}
+
+.paging__buttons {
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 3px 4px 0px  rgba(0,0,0,0.45);
+    border-radius: 4px;
+}
+
+.paging__buttons-prev {
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.paging__buttons-next {
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.paging__buttons-prev , .paging__buttons-next {
+    display: block;
+    color: white;
+    line-height: 30px;
+    height: 30px;
+    width: 50px;
+    background-color: var(--primary-color);
+    text-align: center;
+    margin: 0;
+}
+
+.paging__buttons-prev > span,
+.paging__buttons-next > span {
+    text-align: center;
+    line-height: inherit;
+    vertical-align: middle;
+}
+
+.paging__buttons-prev:hover,
+.paging__buttons-next:hover {
+    background-color: var(--hover-color);
+    color: white;
+}
+
+.paging__buttons-prev {
+    border-right: 1px solid white;
+}
+
+.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: var(--primary-text-color);
+
+}
+
 @media only screen and (min-width: 600px){
     
+    .box {    
+        margin-bottom: 25px;
+    }
+
+    .paging {
+        margin-top: 10px !important;
+        border-top: none !important;
+    }
+
     .large {
         width: auto;
     }
@@ -592,6 +670,20 @@ label > span {
 
 @media only screen and (min-width: 1024px){
         
+    .paging {
+        margin-top: 15px !important;
+        border-top: 1px solid var(--primary-text-color) !important;
+    }
+
+    .searchbar {
+        border: 1px solid var(--primary-text-color);
+        border-radius: 20px;
+        width: 50%;
+        height: 30px;
+        padding-left: 10px;
+        padding-right: 5px;
+    }
+
     .searchbar {
         border: 1px solid var(--primary-text-color);
         border-radius: 20px;
@@ -735,6 +827,11 @@ label > span {
 
 @media only screen and (min-width: 1440px){
     
+    .paging {
+        margin-top: 15px !important;
+        border-top: 1px solid var(--primary-text-color) !important;
+    }
+
     .searchbar {
         border: 1px solid var(--primary-text-color);
         border-radius: 20px;
@@ -874,6 +971,7 @@ label > span {
         transition-duration: 200ms;
     }
 }
+
 
 /*Override bootstrap styles*/
 
