@@ -21,6 +21,34 @@ body {
 
 }
 
+.primary-text {
+    color: var(--primary-text-color);
+}
+
+.title-1 {
+    font-size: 100px !important;
+}
+
+.app-empty {
+    display: flex;    
+    flex-direction:column;
+    margin-top: 5%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.app-empty > h1 {
+    font-size: 1.3rem;
+    background-color: var(--secondary-text-color);
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 2px 0px 8px 0px rgba(0,0,0, 0.4);
+    margin-bottom: 15px;    
+}
+
 .not-result {    
     display: flex;
     justify-content: center;
@@ -29,6 +57,7 @@ body {
     height: 80vh;    
     padding: 10px;
     margin-bottom: 10px;    
+    text-align: center;
 }
 
 .not-result > img {
@@ -669,7 +698,12 @@ label > span {
 
 
 @media only screen and (min-width: 1024px){
-        
+
+    .app-empty > h1 {
+        font-size: 1.8rem;
+        font-weight: bolder;
+    }
+
     .paging {
         margin-top: 15px !important;
         border-top: 1px solid var(--primary-text-color) !important;
@@ -827,6 +861,11 @@ label > span {
 
 @media only screen and (min-width: 1440px){
     
+
+    .app-empty > h1 {
+        font-size: 2.5rem;        
+    }
+
     .paging {
         margin-top: 15px !important;
         border-top: 1px solid var(--primary-text-color) !important;

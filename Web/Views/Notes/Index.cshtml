@@ -10,8 +10,11 @@
 	string prevDisabled = !this.Model.HasPrevious() ? "disabled" : "";
 }
 
+
+
 @if (Model.Data.Count() > 0)
 {
+
 	<div class="box">
 		<div class="left">
 			<div class="field horizontal">
@@ -25,7 +28,7 @@
 					<select id="orderBy" asp-items="@ViewBag.SortOptions"></select>
 					<input type="hidden" name="direction" id="direction" value="@ViewBag.Direction" />
 					<input type="hidden" name="page" id="page" value="@ViewBag.Page" />
-				</div>				
+				</div>
 			</div>
 		</div>
 		<div class="right">
@@ -70,7 +73,7 @@
 			number++;
 		}
 	</div>
-	
+
 	<div class="paging">
 		<p class="paging-label"> @((Model.PageIndex - 1) * Model.ItemsPerPage + Model.Data.Count()) de @Model.TotalItems</p>
 		<div class="paging__buttons">
@@ -89,11 +92,23 @@
 }
 else
 {
-<div class="not-result">
-	<img src="~/img/no-result.svg" alt="Alternate Text" />
-	<h2 class=" text-center">the search has returned no results</h2>
-	<a class="button" asp-action="index" asp-controller="notes">Back</a>
-</div>
+	if (!string.IsNullOrEmpty(@ViewBag.Search))
+	{
+		<div class="not-result">
+			<img src="~/img/no-result.svg" alt="Alternate Text" />
+			<h2 class=" text-center">The search has returned no results</h2>
+			<a class="button" asp-action="index" asp-controller="notes">Back</a>
+		</div>
+	}
+	else
+	{
+		<div class="app-empty">
+			<h1>There are no notes created yet, do you want to create one?</h1>
+			<a class="button" asp-action="create" asp-controller="notes">Create <span class="material-icons">add</span></a>
+
+		</div>
+
+	}
 }
 
 
