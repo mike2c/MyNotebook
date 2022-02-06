@@ -1,7 +1,6 @@
-﻿
-namespace Web.Navigation
+﻿namespace Web.Navigation
 {
-    public struct PaginationLink
+    public struct NavigationLink
     {
         public string Previous { get; set; }
         public string Next { get; set; }

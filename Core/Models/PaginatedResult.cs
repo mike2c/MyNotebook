@@ -30,6 +30,5 @@ namespace Core.Models
         {
             return PageIndex > 1;
         }
-
     }
 }

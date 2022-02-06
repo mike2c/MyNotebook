@@ -9,7 +9,7 @@ namespace Core.Repository
     public interface IRepository<T> where T : Entity
     {
         public T Get(int id);
-        public PaginatedResult<T> GetAll(int page, int size, string search, string orderBy, string direction);
+        public PaginatedResult<T> GetAll(Pagination pagination);
         public void Create(T entity);
         public void Update(T entity);
         public void Delete(int id);

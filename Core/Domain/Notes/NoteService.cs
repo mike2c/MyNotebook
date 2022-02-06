@@ -37,9 +37,9 @@ namespace Core.Domain.Notes
             this.noteRepository.Delete(noteId);
         }
 
-        public PaginatedResult<Note> GetAllNotes(int page, int size, string search, string orderBy, string direction)
+        public PaginatedResult<Note> GetAllNotes(Pagination pagination)
         {            
-            var notes = noteRepository.GetAll(page, size, search, orderBy, direction);
+            var notes = noteRepository.GetAll(pagination);
             return notes;
         }
 
@@ -62,7 +62,5 @@ namespace Core.Domain.Notes
 
             return note;            
         }
-
-
     }
 }

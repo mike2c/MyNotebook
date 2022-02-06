@@ -14,32 +14,28 @@ namespace Web.Controllers
 {
     public class NotesController : Controller
     {   
-        private INoteService noteService;
-        private ITopicService topicService;
+        private readonly INoteService noteService;
+        private readonly ITopicService topicService;
         private readonly TinyMCE tinyMCE;
 
         public NotesController(INoteService noteService, ITopicService topicService, IOptions<TinyMCE> tinyMCEOptions)
         {
             this.noteService = noteService;
             this.topicService = topicService;
-            this.tinyMCE = tinyMCEOptions.Value;
+            this.tinyMCE = tinyMCEOptions.Value;            
         }
         
-        [HttpGet]
-        public ActionResult Index(string search, string orderBy, string direction, int page = 1, int size = 12)
-        {
-            search = search ?? string.Empty;
-            direction = direction ?? "asc";
-            orderBy = orderBy ?? "title";                        
-            
-            var notes = noteService.GetAllNotes(page, size, search, orderBy, direction);
-            var links = Pagination.GenerateNavigationLinks<Note>(notes, page, search, orderBy, direction);
+        [HttpGet]        
+        public ActionResult Index(Pagination pagination)
+        {            
+            var notes = noteService.GetAllNotes(pagination);
+            var links = ListNavigation.GenerateLinks<Note>(notes, pagination);
 
-            ViewBag.SortOptions = GetSortListItems(orderBy);
-            ViewBag.Direction = direction;
-            ViewBag.Search = search;
-            ViewBag.Page = page;
+            ViewBag.SortOptions = GetSortOptions(pagination.OrderBy);
 
+            ViewBag.Direction = pagination.Direction;
+            ViewBag.Search = pagination.Search;
+            ViewBag.Page = pagination.Page;
             ViewBag.PrevLink = links.Previous;
             ViewBag.NextLink = links.Next;
 
@@ -122,7 +118,7 @@ namespace Web.Controllers
         }
                
         #region Get list items methods
-            private List<SelectListItem> GetSortListItems(string current)
+            private List<SelectListItem> GetSortOptions(string current)
             {
                 var sortListItems = new List<SelectListItem>()
                 {

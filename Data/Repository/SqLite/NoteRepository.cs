@@ -1,10 +1,10 @@
 ﻿using Core.Entities;
 using Core.Repository;
+using Core.Models;
 using Data.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-using Core.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repository.SqLite
 {
@@ -17,13 +17,13 @@ namespace Data.Repository.SqLite
             this.context = context;
         }
 
-        public PaginatedResult<Note> GetAll(int page, int size, string search, string orderBy, string direction)
+        public PaginatedResult<Note> GetAll(Pagination pagination)
         {
-            var query = context.Notes.Where(a => EF.Functions.Like(a.Title, $"%{search}%") || EF.Functions.Like(a.Body, $"%{search}%"));
-            var itemsPerPage = query.Count();
-            var data = ApplySorting(query, orderBy, direction).Include(a => a.Topic).Skip((page - 1) * size).Take(size).ToList();
+            var query = context.Notes.Where(a => EF.Functions.Like(a.Title, $"%{pagination.Search}%") || EF.Functions.Like(a.Body, $"%{pagination.Search}%"));
+            var totalItems = query.Count();
+            var data = ApplySorting(query, pagination.OrderBy, pagination.Direction).Include(a => a.Topic).Skip((pagination.Page - 1) * pagination.Size).Take(pagination.Size).ToList();
 
-            return new PaginatedResult<Note>(page, size, itemsPerPage, data);
+            return new PaginatedResult<Note>(pagination.Page, pagination.Size, totalItems, data);
         }
 
         public void Create(Note entity)

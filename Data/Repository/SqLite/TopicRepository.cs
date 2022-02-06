@@ -35,7 +35,7 @@ namespace Data.Repository.SqLite
             return entity;
         }
 
-        public PaginatedResult<Topic> GetAll(int page, int size, string search, string orderBy, string direction)
+        public PaginatedResult<Topic> GetAll(Pagination pagination)
         {
             throw new NotImplementedException();
         }
