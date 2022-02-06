@@ -1,6 +1,5 @@
 ﻿namespace Core.Entities
 {
-    public class Entity
-    {
-    }
+    public class Entity { }
 }
+ 

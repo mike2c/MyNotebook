@@ -5,11 +5,11 @@ namespace Core.Models
 {
     public class PaginatedResult<T>
     {
-        public int PageIndex { get; }
-        public int ItemsPerPage { get; }
-        public int TotalItems { get; }
-        public int TotalPages { get; }
-        public IEnumerable<T> Data { get; set; }
+        public readonly int PageIndex;
+        public readonly int ItemsPerPage;
+        public readonly int TotalItems;
+        public readonly int TotalPages;
+        public readonly IEnumerable<T> Data;
         
         public PaginatedResult(int currentPage, int itemsPerPage, int totalItems, IEnumerable<T> data)
         {
