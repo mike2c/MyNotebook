@@ -13,12 +13,12 @@ namespace Data.Context
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "customers.db");
+            DbPath = System.IO.Path.Join(path, "notes.db");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) {
             options.UseSqlite($"Data Source={DbPath}");
-            options.LogTo(Console.WriteLine);
+            //options.LogTo(Console.WriteLine);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
