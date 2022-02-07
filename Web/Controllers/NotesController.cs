@@ -1,6 +1,5 @@
 ﻿using Core.Domain.Notes;
 using Core.Domain.Topics;
-using Core.Entities;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
