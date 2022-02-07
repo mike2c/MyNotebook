@@ -27,12 +27,11 @@ namespace Web.Controllers
         [HttpGet]        
         public ActionResult Index(Pagination pagination)
         {            
-            var notes = noteService.GetAllNotes(pagination);
-            var links = ListNavigation.GenerateLinks(notes, pagination);
+            var notes = noteService.GetAllNotes(pagination);            
 
+            ViewBag.Pagination = pagination;
             ViewBag.SortOptions = GetSortOptions(pagination.OrderBy);
-            ViewBag.Pagination = pagination;            
-            ViewBag.Navigation = links;            
+            ViewBag.Navigation = ListNavigation.GenerateLinks(notes, pagination); ;
 
             return View(notes);
         }
