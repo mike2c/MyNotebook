@@ -18,7 +18,7 @@
 				<label>Sort By</label>
 				<div class="button-group">
 					<button id="toggleSort">
-						<span class="material-icons @(@ViewBag.Direction.Equals("desc") ? "inverse-text" : "")">
+						<span class="material-icons @(@ViewBag.Pagination.Direction.Equals("desc") ? "inverse-text" : "")">
 							swap_vert
 						</span>
 					</button>
@@ -73,12 +73,12 @@
 	<div class="paging">
 		<p class="paging-label"> @((Model.PageIndex - 1) * Model.ItemsPerPage + Model.Data.Count()) de @Model.TotalItems</p>
 		<div class="paging__buttons">
-			<a class="paging__buttons-prev @prevDisabled" href="?@ViewBag.PrevLink">
+			<a class="paging__buttons-prev @prevDisabled" href="?@ViewBag.Navigation.Previous">
 				<span class="material-icons">
 					arrow_back_ios
 				</span>
 			</a>
-			<a class="paging__buttons-next @nextDisabled" href="?@ViewBag.NextLink">
+			<a class="paging__buttons-next @nextDisabled" href="?@ViewBag.Navigation.Next">
 				<span class="material-icons">
 					arrow_forward_ios
 				</span>
@@ -88,7 +88,7 @@
 }
 else
 {
-	if (!string.IsNullOrEmpty(@ViewBag.Search))
+	if (!string.IsNullOrEmpty(@ViewBag.Pagination.Search))
 	{
 		<div class="not-result">
 			<img src="~/img/no-result.svg" alt="Alternate Text" />
@@ -108,6 +108,6 @@ else
 }
 
 @* Hidden fields that keep the page information *@
-<input type="hidden" name="direction" id="direction" value="@ViewBag.Direction" />
-<input type="hidden" name="page" id="page" value="@ViewBag.Page" />
+<input type="hidden" name="direction" id="direction" value="@ViewBag.Pagination.Direction" />
+<input type="hidden" name="page" id="page" value="@ViewBag.Pagination.Page" />
 

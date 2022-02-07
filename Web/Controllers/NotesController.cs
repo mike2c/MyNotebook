@@ -29,15 +29,11 @@ namespace Web.Controllers
         public ActionResult Index(Pagination pagination)
         {            
             var notes = noteService.GetAllNotes(pagination);
-            var links = ListNavigation.GenerateLinks<Note>(notes, pagination);
+            var links = ListNavigation.GenerateLinks(notes, pagination);
 
             ViewBag.SortOptions = GetSortOptions(pagination.OrderBy);
-
-            ViewBag.Direction = pagination.Direction;
-            ViewBag.Search = pagination.Search;
-            ViewBag.Page = pagination.Page;
-            ViewBag.PrevLink = links.Previous;
-            ViewBag.NextLink = links.Next;
+            ViewBag.Pagination = pagination;            
+            ViewBag.Navigation = links;            
 
             return View(notes);
         }
