@@ -67,11 +67,9 @@ namespace Web.Controllers
         {
             var note = noteService.GetNote(id);
             
-            if(note == null)
-            {
+            if(note == null)            
                 return Redirect("error/404");
-            }
-
+            
             var model = new UpdateNoteModel()
             {
                 NoteId = note.NoteId,
