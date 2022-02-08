@@ -58,9 +58,9 @@ namespace Data.Repository.SqLite
                 case "date":
                     return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.CreatedDate) : query.OrderByDescending(a => a.CreatedDate);
                 case "topic":
-                    return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.Topic.TopicName.ToUpper()) : query.OrderByDescending(a => a.Topic.TopicName);
+                    return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.Topic.TopicName.ToUpper()) : query.OrderByDescending(a => a.Topic.TopicName.ToUpper());
                 default:
-                    return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.Title.ToUpper()) : query.OrderByDescending(a => a.Title);
+                    return direction.Equals("asc", StringComparison.OrdinalIgnoreCase) ? query.OrderBy(a => a.Title.ToUpper()) : query.OrderByDescending(a => a.Title.ToUpper());
             }
         }
     }
